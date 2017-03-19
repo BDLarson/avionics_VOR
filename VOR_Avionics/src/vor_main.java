@@ -2,31 +2,57 @@ import java.util.*;
 
 public class vor_main {
 	public static int obsInput;
+	public static String direction;
+	public static int planeLat;
+	public static int planeLon;
+	public static int stationLat;
+	public static int stationLon;
 	public static String toFrom;
-	public static boolean north;
-	public static boolean west;
-	public static boolean east;
-	public static boolean south;
 
-	
 	public static void main(String[] args) {
+		System.out.println("Hello and welcome to your own personal VOR program!");
+		System.out.println();
 		vor_main();
 	}
 		
 	private static void vor_main() {
-		System.out.println("Hello and welcome to your own personal VOR program!");
-		System.out.print("Please enter a value for the OBS: ");
-		Scanner reader = new Scanner(System.in);
-		int userInput = reader.nextInt();
-		setOBS(userInput);
-		System.out.println("The OBS is set to: " + obsInput);
+		setOBS();
 		setDirection();
-		
+		setPlaneLat();
+		setPlaneLon();
+		setStationLat();
+		setStationLon();
 	}
 	
 	//Sets the radial of the aircraft in which to move
-	public static void setOBS(int user_input) {
-		obsInput = user_input;
+	public static void setOBS() {
+		Scanner reader = new Scanner(System.in);
+		boolean obsBoolean = false;
+	
+		while(obsBoolean == false)
+		{
+			try {
+				System.out.print("Please enter a value for the OBS: ");
+				obsInput = reader.nextInt();
+				if (obsInput <= 360 && obsInput >= 0)
+				{
+					obsBoolean = true;
+				}
+				else
+				{
+					System.out.println("Please enter a valid radial integer!");
+					System.out.println("Valid OBS is between 0-360 degrees");
+					obsBoolean = false;
+				}
+			} 
+			catch (InputMismatchException er)
+			{
+				System.out.println("Please enter an integer value!");
+				reader.next();
+			}
+		}
+		
+		System.out.println("The OBS is set to: " + obsInput);
 	}
 	
 	//Gets the radial of the aircraft in which to move
@@ -36,17 +62,97 @@ public class vor_main {
 	}
 	
 	public static void setDirection() {
+		Scanner reader = new Scanner(System.in);
+		boolean dirBoolean = false;
+		while(dirBoolean == false)
+		{
+			System.out.print("Please enter the direction of the aircraft: ");
+			direction = reader.nextLine();
+			if (direction.equalsIgnoreCase("North") ||
+				direction.equalsIgnoreCase("South") ||
+				direction.equalsIgnoreCase("East") ||
+				direction.equalsIgnoreCase("West"))
+			{
+				dirBoolean = true;
+			}
+			else
+			{
+				System.out.println("Please enter a valid direction!");
+				System.out.println("North, West, East, South");
+				System.out.println("-West or -East");
+				dirBoolean = false;
+			}
+		}
+		System.out.println("The direction is set to: " + direction);
+	}
+	
+	public String getDirection()
+	{
+		return (direction);
+	}
+	
+	public static void setPlaneLat()
+	{
 		
+	}
+	
+	public int getPlaneLat()
+	{
+		return (planeLat);
+	}
+	
+	public static void setPlaneLon()
+	{
+		
+	}
+	
+	public int getPlaneLon()
+	{
+		return (planeLon);
+	}
+	
+	public static void setStationLat()
+	{
+		
+	}
+	
+	public int getStationLat()
+	{
+		return (stationLat);
+	}
+	
+	public static void setStationLon()
+	{
+		
+	}
+	
+	public int getStationLon()
+	{
+		return (stationLon);
 	}
 	
 	public static String toFrom(int plane, int station) {
 		if (plane < station)
 		{
-			toFrom = "TO";
+			if (direction.equalsIgnoreCase("North"))
+			{
+				toFrom = "TO";
+			}
+			else if (direction.equalsIgnoreCase("South"))
+			{
+				toFrom = "FROM";
+			}
 		}
 		else if (plane > station)
 		{
-			toFrom = "FROM";
+			if (direction.equalsIgnoreCase("North"))
+			{
+				toFrom = "FROM";
+			}
+			else if (direction.equalsIgnoreCase("South"))
+			{
+				toFrom = "TO";
+			}
 		}
 		else
 		{
@@ -54,6 +160,4 @@ public class vor_main {
 		}
 		return toFrom;
 	}
-	//OBS - Omni Bearing Selector
-	//CDI - Course DEviation Indicator
 }
