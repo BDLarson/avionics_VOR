@@ -9,11 +9,18 @@ public class vor_main
 	public static int stationLat;
 	public static int stationLon;
 	public static String toFrom;
+	public static String signal;
+	public static String quadrant;
 
 	public static void main(String[] args)
 	{
-		System.out.println("Hello and welcome to your own personal VOR program!");
+		System.out.println("+-----------------------------------------------------+");
+		System.out.println("|-Hello and welcome to your own personal VOR program!-|");
+		System.out.println("|----------------Created by Team Cleave---------------|");
+		System.out.println("|------------------------ICS414-----------------------|");
+		System.out.println("+-----------------------------------------------------+");
 		System.out.println();
+		
 		vor_main();
 	}
 
@@ -25,11 +32,14 @@ public class vor_main
 		setPlaneLon();
 		setStationLat();
 		setStationLon();
-
-		//System.out.println("Plane Latitude: " + planeLat);
-		//System.out.println("Plane Longitude: " + planeLon);
-		//System.out.println("Station Latitude: " + stationLat);
-		//System.out.println("Station Longitude: " + stationLon);
+		signalStrength(planeLat, planeLon, stationLat, stationLon);
+		
+		System.out.println("Plane Latitude: " + planeLat);
+		System.out.println("Plane Longitude: " + planeLon);
+		System.out.println("Station Latitude: " + stationLat);
+		System.out.println("Station Longitude: " + stationLon);
+		toFrom(planeLat, planeLon, stationLat, stationLon);
+		quadrant(planeLat, planeLon, stationLat, stationLon);
 	}
 
 	//Sets the radial of the aircraft in which to move
@@ -147,45 +157,129 @@ public class vor_main
 		return (stationLon);
 	}
 
-	public static String toFrom(int plane, int station)
+	public static void toFrom(int pLat, int pLon, int sLat, int sLon)
 	{
-		if (plane < station)
+		if (direction.equalsIgnoreCase("North") || direction.equalsIgnoreCase("South"))
 		{
-			if (direction.equalsIgnoreCase("North"))
+			if (pLon == sLon)
 			{
-				toFrom = "TO";
+				//Direct 90 degree radial from the station
+				toFrom = "ERROR the aircraft is abeam the station.";
 			}
-			else if (direction.equalsIgnoreCase("South"))
+			else if (pLat < sLat)
 			{
-				toFrom = "FROM";
+				if (direction.equalsIgnoreCase("North"))
+				{
+					toFrom = "TO";
+				}
+				else if (direction.equalsIgnoreCase("South"))
+				{
+					toFrom = "FROM";
+				}
 			}
-		}
-		else if (plane > station)
-		{
-			if (direction.equalsIgnoreCase("North"))
+			else if (pLat > sLat)
 			{
-				toFrom = "FROM";
-			}
-			else if (direction.equalsIgnoreCase("South"))
-			{
-				toFrom = "TO";
+				if (direction.equalsIgnoreCase("North"))
+				{
+					toFrom = "FROM";
+				}
+				else if (direction.equalsIgnoreCase("South"))
+				{
+					toFrom = "TO";
+				}
 			}
 		}
 		else
 		{
-			toFrom = "ERROR";
+			if (pLon < sLon)
+			{
+				if (direction.equalsIgnoreCase("East"))
+				{
+					toFrom = "TO";
+				}
+				else if (direction.equalsIgnoreCase("West"))
+				{
+					toFrom = "FROM";
+				}
+			}
+			else if (pLon > sLon)
+			{
+				if (direction.equalsIgnoreCase("East"))
+				{
+					toFrom = "FROM";
+				}
+				else if (direction.equalsIgnoreCase("West"))
+				{
+					toFrom = "TO";
+				}
+			}
+			else
+			{
+				toFrom = "FROM";
+			}
 		}
-		return toFrom;
+		
+		System.out.println("The aircraft is currently moving " + toFrom + " the station");
 	}
 
-	public static void calcGoodBad()
+	public static void signalStrength(int pLat, int pLon, int sLat, int sLon)
 	{
-		//calculate good/bad signal
+		if (pLat != sLat && pLon != sLon)
+		{
+			signal = "GOOD";
+		}
+		else if (pLat == sLat || pLon == sLon)
+		{
+			//Check if aircraft is abeam the station
+			signal = "BAD abeam";
+		}
+		else
+		{
+			//Aircraft is directly above the station
+			signal = "BAD";
+		}
+		
+		System.out.println("The station signal is currently: " +  signal);
 	}
-
+	
+	public static void quadrant(int pLat, int pLon, int sLat, int sLon)
+	{
+		if (pLon < sLon)
+		{
+			if (pLat == sLat)
+			{
+				quadrant = "LEFT DIRECT";
+			}
+			else if (pLat < sLat)
+			{
+				//Bottom Right
+				quadrant = "LEFT TO";
+			}
+			else if (pLat > sLat) 
+			{
+				quadrant = "LEFT FROM";
+			}
+		}
+		else if (pLon > sLon)
+		{
+			if (pLat == sLat)
+			{
+				quadrant = "RIGHT DIRECT";
+			}
+			else if (pLat > sLat)
+			{
+				quadrant = "RIGHT FROM";
+			}
+			else if (pLat < sLat)
+			{
+				quadrant = "RIGHT TO";
+			}
+		}
+		System.out.println("The aircraft is currently in quadrant: " + quadrant);
+	}
+	
 	public static void calcAngle()
 	{
 		//calculate deflection angle
 	}
-
 }
