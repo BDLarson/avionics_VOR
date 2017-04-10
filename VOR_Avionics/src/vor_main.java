@@ -61,6 +61,27 @@ public class vor_main
 		System.out.println("The intercepted radial is set to: " + getInterRadial());	
 	}
 	
+	/*
+	 * Same method without console input, instead parameter input for testing.
+	 */
+	public static void setInterRadial(int input) {
+		boolean validInput = false;
+
+		while(!validInput) {
+			System.out.println("Welcome pilot!");
+			System.out.println("What is the station's intercepted radial?");
+			if(input <= 359) {
+				interRadial = input;
+				validInput = true;
+			} else {
+				System.out.println("Invalid radial!");
+				System.out.println("Please enter a correct radial up to 359.");
+				break;
+			}
+		}
+		System.out.println("The intercepted radial is set to: " + getInterRadial());	
+	}
+	
 	public static int getInterRadial() {
 		return interRadial;
 	}
@@ -75,6 +96,25 @@ public class vor_main
 			} else {
 				System.out.println("Invalid radial! ");
 				System.out.println("Please enter a radial between 0-359");
+			}
+		}
+		System.out.println("The desired radial is set to: " + getDesiredRadial());	
+	}
+	
+	/*
+	 * Same method without console input, instead parameter input for testing.
+	 */
+	public static void setDesiredRadial(int input) {
+		boolean validInput = false;
+		while(!validInput) {
+			System.out.println("What is the desired radial?");
+			if(input <= 359 && input >= 0) {
+				desiredRadial = input;
+				validInput = true;
+			} else {
+				System.out.println("Invalid radial! ");
+				System.out.println("Please enter a radial between 0-359");
+				break;
 			}
 		}
 		System.out.println("The desired radial is set to: " + getDesiredRadial());	
