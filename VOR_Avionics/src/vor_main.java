@@ -153,6 +153,34 @@ public class vor_main
 		setDirection();
 	}
 	
+	public static void setToFrom(String input) {
+		boolean validInput = false;
+		String decision;
+		while(!validInput) {
+			System.out.println("Is the plane moving in the direction of the station?");
+			System.out.println("Please enter 'yes' or 'no'.");
+			try {
+				decision = input;
+				if (decision.equalsIgnoreCase("yes") || decision.equalsIgnoreCase("no")) {
+					if (decision.equalsIgnoreCase("yes")) {
+						toFrom = true;
+					}
+					if (decision.equalsIgnoreCase("no")) {
+						toFrom = false;
+					}
+					validInput = true;
+				} else {
+					System.out.println("Invalid response! Please enter 'yes' or 'no'.");
+					break;
+				}
+			} catch (InputMismatchException er) {
+				System.out.println("Please enter a valid response string!");
+				userInput.next();
+			}
+		}
+		System.out.println("The direction towards the station is set to: " + getToFrom());
+	}
+	
 	public static boolean getToFrom() {
 		return toFrom;
 	}
