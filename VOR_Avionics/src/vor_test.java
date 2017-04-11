@@ -265,8 +265,71 @@ public class vor_test {
 		
 	}
 	
-	//@Test
+	@Test
 	public void testSignal() {
+		vor_main test6 = new vor_main();
 		
+		/*
+		 * Tests that check signals for deflections not equal to 90 degrees
+		 */
+		test6.setInterRadial(45);
+		test6.setDesiredRadial(0);
+		test6.setDeflection();
+		test6.setDirection();
+		test6.setSignal();
+			
+		assertEquals("GOOD", test6.getSignal());
+		
+		test6.setInterRadial(45);
+		test6.setDesiredRadial(90);
+		test6.setDeflection();
+		test6.setDirection();
+		test6.setSignal();
+			
+		assertEquals("GOOD", test6.getSignal());
+		
+		/*
+		 * Test that check signal for deflection that is -1 degree from 90 
+		 */
+		test6.setInterRadial(45);
+		test6.setDesiredRadial(314);
+		test6.setDeflection();
+		test6.setDirection();
+		test6.setSignal();
+			
+		assertEquals("BAD", test6.getSignal());
+		
+		/*
+		 * Test that check signal for deflection that is +1 degree from 90 
+		 */		
+		test6.setInterRadial(45);
+		test6.setDesiredRadial(136);
+		test6.setDeflection();
+		test6.setDirection();
+		test6.setSignal();
+			
+		assertEquals("BAD", test6.getSignal());
+		
+		/*
+		 * Test that check signal for deflection that is equal to 90 
+		 */
+		test6.setInterRadial(45);
+		test6.setDesiredRadial(135);
+		test6.setDeflection();
+		test6.setDirection();
+		test6.setSignal();
+			
+		assertEquals("BAD", test6.getSignal());
+		
+		/*
+		 * Test that check signal for a negative intercepted radial, represents BAD 
+		 */
+		test6.setInterRadial(-45);
+		test6.setDesiredRadial(135);
+		test6.setDeflection();
+		test6.setDirection();
+		test6.setSignal();
+			
+		assertEquals("BAD", test6.getSignal());
 	}
 }
