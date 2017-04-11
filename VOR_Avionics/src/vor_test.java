@@ -101,7 +101,7 @@ public class vor_test {
 		assertFalse(test3.getToFrom());
 	}
 	
-	@Test
+	//@Test
 	public void testDeflection() {
 		vor_main test4 = new vor_main();
 		
@@ -113,7 +113,8 @@ public class vor_test {
 		test4.setDeflection();
 		
 		assertEquals(45, test4.getDeflection());
-		
+		assertEquals("Right", test4.getBearing());
+
 		
 		/**
 		 * Tests an Intercepted radial that is lower than the Desired radial.
@@ -123,6 +124,7 @@ public class vor_test {
 		test4.setDeflection();
 		
 		assertEquals(-45, test4.getDeflection());
+		assertEquals("Left", test4.getBearing());
 
 		/**
 		 * Tests an a Desired radial that is close to 360
@@ -132,7 +134,8 @@ public class vor_test {
 		test4.setDeflection();
 		
 		assertEquals(46, test4.getDeflection());	
-		
+		assertEquals("Right", test4.getBearing());
+
 		/*
 		 * Tests a Desired radial that is greater than 180 + Inter radial
 		 */
@@ -141,7 +144,8 @@ public class vor_test {
 		test4.setDeflection();
 		
 		assertEquals(179, test4.getDeflection());
-		
+		assertEquals("Right", test4.getBearing());
+
 		/*
 		 * Tests a Desired radial that is Less than 180 + Inter radial
 		 */
@@ -150,15 +154,70 @@ public class vor_test {
 		test4.setDeflection();
 		
 		assertEquals(-179, test4.getDeflection());
+		assertEquals("Left", test4.getBearing());
+
 	}
 	
 	@Test
 	public void testDirection() {
 		vor_main test5 = new vor_main();
 		
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(0);
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("TO", test5.getDirection());
+		
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(90);
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("TO", test5.getDirection());
+		
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(359);
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("TO", test5.getDirection());
+		
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(300);
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("FROM", test5.getDirection());
+		
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(200);
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("FROM", test5.getDirection());
+		
+		
+		/*
+		 * Tests that check 90 degree radial, plane is abeam the station.
+		 */
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(135); // +90 degree radial
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("ABEAM", test5.getDirection());
+		
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(315); //-90 degree radial
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("ABEAM", test5.getDirection());
+		
 	}
 	
-	@Test
+	//@Test
 	public void testSignal() {
 		
 	}

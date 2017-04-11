@@ -185,44 +185,6 @@ public class vor_main
 		return toFrom;
 	}
 	
-	public static void setDirection() {
-		if(deflection == 90) {
-			direction = "ABEAM";
-		} else if(deflection < 90) {
-			direction = "TO";
-		} else {
-			direction = "FROM";
-		}
-		
-		/*if(!toFrom) {
-			direction = "FROM";
-		} else {
-			direction = "TO";
-		}*/
-	}
-	
-	public static String getDirection() {
-		return direction;
-	}
-	
-	public static void setSignal() {
-		if(interRadial >= 0) {
-			if(Math.abs(deflection) >=89 && Math.abs(deflection) <= 91) {
-				//Checking for +-1 degree from 90 degree abeam the station
-				signal = "BAD";
-			} else {
-				signal = "GOOD";
-			}
-		} else {
-			//If intercepted radial is negative, the signal is bad to begin with.
-			signal = "BAD";
-		}
-	}
-	
-	public static String getSignal() {
-		return signal;
-	}
-	
 	public static void setDeflection() {
 		diffAngle = interRadial - desiredRadial;
 		
@@ -253,6 +215,43 @@ public class vor_main
 	
 	public static int getDeflection() {
 		return deflection;
+	}
+	
+	public static String getBearing() {
+		System.out.println("The bearing direction is: " + bearing);
+		return bearing;
+	}
+	
+	public static void setDirection() {
+		if(Math.abs(deflection) == 90) {
+			direction = "ABEAM";
+		} else if(Math.abs(deflection) < 90) {
+			direction = "TO";
+		} else {
+			direction = "FROM";
+		}
+	}
+	
+	public static String getDirection() {
+		return direction;
+	}
+	
+	public static void setSignal() {
+		if(interRadial >= 0) {
+			if(Math.abs(deflection) >=89 && Math.abs(deflection) <= 91) {
+				//Checking for +-1 degree from 90 degree abeam the station
+				signal = "BAD";
+			} else {
+				signal = "GOOD";
+			}
+		} else {
+			//If intercepted radial is negative, the signal is bad to begin with.
+			signal = "BAD";
+		}
+	}
+	
+	public static String getSignal() {
+		return signal;
 	}
 	
 	public static void programLoop() {
