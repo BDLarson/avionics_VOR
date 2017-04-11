@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class vor_test {
 
-	//@Test
+	@Test
 	public void testInterRadial() {
 		vor_main test1 = new vor_main();
 		
@@ -38,7 +38,7 @@ public class vor_test {
 		assertEquals(-1, test1.getInterRadial());
 	}
 	
-	//@Test
+	@Test
 	public void testDesiredRadial() {
 		vor_main test2 = new vor_main();
 		
@@ -69,7 +69,7 @@ public class vor_test {
 		assertEquals(0, test2.getDesiredRadial());
 	}
 	
-	//@Test
+	@Test
 	public void testBooleanToFrom() {
 		vor_main test3 = new vor_main();
 		
@@ -101,7 +101,7 @@ public class vor_test {
 		assertFalse(test3.getToFrom());
 	}
 	
-	//@Test
+	@Test
 	public void testDeflection() {
 		vor_main test4 = new vor_main();
 		
@@ -156,12 +156,34 @@ public class vor_test {
 		assertEquals(-179, test4.getDeflection());
 		assertEquals("Left", test4.getBearing());
 
+		/*
+		 * Tests a desired radial that is opposite of intercepted radial.
+		 */
+		test4.setInterRadial(45);
+		test4.setDesiredRadial(225);
+		test4.setDeflection();
+		
+		assertEquals(-180, test4.getDeflection());
+		assertEquals("Center", test4.getBearing());
+		
+		/*
+		 * Tests a desired radial that is equal to intercepted radial.
+		 */
+		test4.setInterRadial(45);
+		test4.setDesiredRadial(45);
+		test4.setDeflection();
+		
+		assertEquals(0, test4.getDeflection());
+		assertEquals("Center", test4.getBearing());
 	}
 	
 	@Test
 	public void testDirection() {
 		vor_main test5 = new vor_main();
 		
+		/*
+		 * Checking deflection angles that are within 90 degrees, should be TO
+		 */
 		test5.setInterRadial(45);
 		test5.setDesiredRadial(0);
 		test5.setDeflection();
@@ -183,6 +205,33 @@ public class vor_test {
 			
 		assertEquals("TO", test5.getDirection());
 		
+		/*
+		 * Test that checks equal radials, should be TO
+		 */
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(45);
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("TO", test5.getDirection());
+		
+		/*
+		 * Checking deflection angles that are outside 90 degrees, should be FROM
+		 */
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(314);
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("FROM", test5.getDirection());
+		
+		test5.setInterRadial(45);
+		test5.setDesiredRadial(136);
+		test5.setDeflection();
+		test5.setDirection();
+			
+		assertEquals("FROM", test5.getDirection());
+		
 		test5.setInterRadial(45);
 		test5.setDesiredRadial(300);
 		test5.setDeflection();
@@ -196,7 +245,6 @@ public class vor_test {
 		test5.setDirection();
 			
 		assertEquals("FROM", test5.getDirection());
-		
 		
 		/*
 		 * Tests that check 90 degree radial, plane is abeam the station.

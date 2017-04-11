@@ -206,10 +206,14 @@ public class vor_main
 		 * based on the calculated deflection angle.
 		 */
 		
-		if(deflection >= 0) {
+		if (deflection == 0 || Math.abs(deflection) == 180){
+			bearing = "Center";
+		} else if(deflection > 0) {
 			bearing = "Right";
-		} else {
+		} else if (deflection < 0){
 			bearing = "Left";
+		} else {
+			System.out.println("There was an out-of-bounds error!");
 		}
 	}
 	
