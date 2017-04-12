@@ -332,4 +332,205 @@ public class vor_test {
 			
 		assertEquals("BAD", test6.getSignal());
 	}
+	
+	@Test
+	public void testFull() {
+		vor_main test7 = new vor_main();
+		
+		/*
+		 * Full test for Desired radial that is greater
+		 */
+		test7.setInterRadial(45);
+		test7.setDesiredRadial(90);
+		test7.setDeflection();
+		test7.setToFrom("Yes");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(45, test7.getInterRadial());
+		assertEquals(90, test7.getDesiredRadial());
+		assertEquals(-45, test7.getDeflection());
+		assertEquals(true, test7.getToFrom());
+		assertEquals("TO", test7.getDirection());
+		assertEquals("Left", test7.getBearing());
+		assertEquals("GOOD", test7.getSignal());
+
+		/*
+		 * Full test for Desired radial that is lesser
+		 */
+		test7.setInterRadial(45);
+		test7.setDesiredRadial(0);
+		test7.setDeflection();
+		test7.setToFrom("Yes");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(45, test7.getInterRadial());
+		assertEquals(0, test7.getDesiredRadial());
+		assertEquals(45, test7.getDeflection());
+		assertEquals(true, test7.getToFrom());
+		assertEquals("TO", test7.getDirection());
+		assertEquals("Right", test7.getBearing());
+		assertEquals("GOOD", test7.getSignal());
+
+		/*
+		 * Full test for Desired radial that is equal
+		 */
+		test7.setInterRadial(45);
+		test7.setDesiredRadial(45);
+		test7.setDeflection();
+		test7.setToFrom("Yes");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(45, test7.getInterRadial());
+		assertEquals(45, test7.getDesiredRadial());
+		assertEquals(0, test7.getDeflection());
+		assertEquals(true, test7.getToFrom());
+		assertEquals("TO", test7.getDirection());
+		assertEquals("Center", test7.getBearing());
+		assertEquals("GOOD", test7.getSignal());
+		
+		/*
+		 * Full test for Desired radial that is equal to opposite 180 radial
+		 */
+		test7.setInterRadial(45);
+		test7.setDesiredRadial(225);
+		test7.setDeflection();
+		test7.setToFrom("No");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(45, test7.getInterRadial());
+		assertEquals(225, test7.getDesiredRadial());
+		assertEquals(-180, test7.getDeflection());
+		assertEquals(false, test7.getToFrom());
+		assertEquals("FROM", test7.getDirection());
+		assertEquals("Center", test7.getBearing());
+		assertEquals("GOOD", test7.getSignal());
+		
+		/*
+		 * Full test for Desired radial that is close to greater limit
+		 */
+		test7.setInterRadial(45);
+		test7.setDesiredRadial(359);
+		test7.setDeflection();
+		test7.setToFrom("Yes");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(45, test7.getInterRadial());
+		assertEquals(359, test7.getDesiredRadial());
+		assertEquals(46, test7.getDeflection());
+		assertEquals(true, test7.getToFrom());
+		assertEquals("TO", test7.getDirection());
+		assertEquals("Right", test7.getBearing());
+		assertEquals("GOOD", test7.getSignal());
+		
+		/*
+		 * Full test for Intercepted radial that is close to greater limit
+		 */
+		test7.setInterRadial(359);
+		test7.setDesiredRadial(45);
+		test7.setDeflection();
+		test7.setToFrom("Yes");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(359, test7.getInterRadial());
+		assertEquals(45, test7.getDesiredRadial());
+		assertEquals(-46, test7.getDeflection());
+		assertEquals(true, test7.getToFrom());
+		assertEquals("TO", test7.getDirection());
+		assertEquals("Left", test7.getBearing());
+		assertEquals("GOOD", test7.getSignal());
+		
+		/*
+		 * Full test for Desired radial that is close to opposite 180 radial
+		 */
+		test7.setInterRadial(45);
+		test7.setDesiredRadial(226);
+		test7.setDeflection();
+		test7.setToFrom("No");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(45, test7.getInterRadial());
+		assertEquals(226, test7.getDesiredRadial());
+		assertEquals(179, test7.getDeflection());
+		assertEquals(false, test7.getToFrom());
+		assertEquals("FROM", test7.getDirection());
+		assertEquals("Right", test7.getBearing());
+		assertEquals("GOOD", test7.getSignal());
+		
+		/*
+		 * Full test for Desired radial that is close to opposite 180 radial
+		 */
+		test7.setInterRadial(45);
+		test7.setDesiredRadial(224);
+		test7.setDeflection();
+		test7.setToFrom("No");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(45, test7.getInterRadial());
+		assertEquals(224, test7.getDesiredRadial());
+		assertEquals(-179, test7.getDeflection());
+		assertEquals(false, test7.getToFrom());
+		assertEquals("FROM", test7.getDirection());
+		assertEquals("Left", test7.getBearing());
+		assertEquals("GOOD", test7.getSignal());
+		
+		/*
+		 * Full tests for Desired radial that is equal to 90 degree radial
+		 */
+		test7.setInterRadial(45);
+		test7.setDesiredRadial(135);
+		test7.setDeflection();
+		test7.setToFrom("Yes");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(45, test7.getInterRadial());
+		assertEquals(135, test7.getDesiredRadial());
+		assertEquals(-90, test7.getDeflection());
+		assertEquals(true, test7.getToFrom());
+		assertEquals("ABEAM", test7.getDirection());
+		assertEquals("Left", test7.getBearing());
+		assertEquals("BAD", test7.getSignal());
+		
+		test7.setInterRadial(45);
+		test7.setDesiredRadial(315);
+		test7.setDeflection();
+		test7.setToFrom("No");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(45, test7.getInterRadial());
+		assertEquals(315, test7.getDesiredRadial());
+		assertEquals(90, test7.getDeflection());
+		assertEquals(false, test7.getToFrom());
+		assertEquals("ABEAM", test7.getDirection());
+		assertEquals("Right", test7.getBearing());
+		assertEquals("BAD", test7.getSignal());
+		
+		/*
+		 * Full test for Intercepted radial that is negative (indicates BAD signal)
+		 * Program will NOT print out these values except that the Signal is BAD
+		 */
+		test7.setInterRadial(-300);
+		test7.setDesiredRadial(45);
+		test7.setDeflection();
+		test7.setToFrom("No");
+		test7.setDirection();
+		test7.setSignal();
+		
+		assertEquals(-300, test7.getInterRadial());
+		assertEquals(45, test7.getDesiredRadial());
+		assertEquals(15, test7.getDeflection());
+		assertEquals(false, test7.getToFrom());
+		assertEquals("TO", test7.getDirection());
+		assertEquals("Right", test7.getBearing());
+		assertEquals("BAD", test7.getSignal());
+	}
 }
